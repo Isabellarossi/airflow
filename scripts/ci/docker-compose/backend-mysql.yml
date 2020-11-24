@@ -27,7 +27,6 @@ services:
       - mysql
   mysql:
     image: mysql:${MYSQL_VERSION}
-    command: --character-set-server=${MYSQL_ENCODING} --collation-server=${MYSQL_ENCODING}_unicode_ci
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
       - MYSQL_ROOT_HOST=%
@@ -38,5 +37,7 @@ services:
       - mysql-db-volume:/var/lib/mysql
     ports:
       - "${MYSQL_HOST_PORT}:3306"
+    command: ['mysqld', '--character-set-server=${MYSQL_ENCODING}',
+              '--collation-server=${MYSQL_ENCODING}_unicode_ci']
 volumes:
   mysql-db-volume:
